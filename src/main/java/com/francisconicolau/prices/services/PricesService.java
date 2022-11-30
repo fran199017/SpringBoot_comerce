@@ -2,6 +2,7 @@ package com.francisconicolau.prices.services;
 
 import com.francisconicolau.prices.model.PriceSpecification;
 import com.francisconicolau.prices.model.Prices;
+import com.francisconicolau.prices.model.dto.CreatePriceDTO;
 import com.francisconicolau.prices.model.dto.PricesDTO;
 import com.francisconicolau.prices.repository.PricesRepository;
 import org.slf4j.Logger;
@@ -37,9 +38,9 @@ public class PricesService {
         int productId = pricesDTO.getProductId();
         int brandId = pricesDTO.getBrandId();
 
-        LocalDateTime start = getDateformatted(date);
+        LocalDateTime dateLocal = getDateformatted(date);
 
-        Optional<List<Prices>> pricesOpt = pricesRepository.findByParameters(start, productId, brandId);
+        Optional<List<Prices>> pricesOpt = pricesRepository.findByParameters(dateLocal, productId, brandId);
 
         if (pricesOpt.isEmpty()){
             return Collections.emptyList();
@@ -68,4 +69,35 @@ public class PricesService {
     public List<Prices> findAll(PriceSpecification spec) {
         return pricesRepository.findAll(spec);
     }
+
+    public Prices createNewPrice(CreatePriceDTO pricesDTO) {
+        LocalDateTime startDate = getDateformatted(pricesDTO.getStartDate());
+        LocalDateTime endDate = getDateformatted(pricesDTO.getEndDate());
+
+        Prices prices = new Prices();
+        prices.setBrandId(pricesDTO.getBrandId());
+
+        if (startDate != null){
+            prices.setStartDate(startDate);
+        }
+        else{
+            prices.setStartDate(LocalDateTime.now());
+        }
+
+        if (endDate != null){
+            prices.setEndDate(endDate);
+        }
+        else{
+            prices.setEndDate(LocalDateTime.now());
+        }
+
+        prices.setPriceList(pricesDTO.getPriceList());
+        prices.setProductId(pricesDTO.getProductId());
+        prices.setPrice(pricesDTO.getPrice());
+        prices.setCurr(pricesDTO.getCurr());
+        prices.setPriority(pricesDTO.getPriority());
+        Prices save = pricesRepository.save(prices);
+        return save;
+    }
+
 }

@@ -15,6 +15,7 @@ public class Prices {
     @Id
     @ApiModelProperty(value = "ID", required = true)
     @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)  //To add prices h2 database
     int id;
 
     @ApiModelProperty(value = "BRAND_ID", required = true)

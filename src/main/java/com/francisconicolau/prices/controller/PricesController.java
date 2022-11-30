@@ -3,6 +3,7 @@ package com.francisconicolau.prices.controller;
 import com.francisconicolau.prices.model.PriceSpecification;
 import com.francisconicolau.prices.model.Prices;
 import com.francisconicolau.prices.model.PricesSearch;
+import com.francisconicolau.prices.model.dto.CreatePriceDTO;
 import com.francisconicolau.prices.model.dto.PricesDTO;
 import com.francisconicolau.prices.services.PricesService;
 import io.swagger.annotations.*;
@@ -28,6 +29,7 @@ public class PricesController {
 
 
     private static final String NOT_FOUND_PRICES = "Not found prices";
+    private static final String NOT_CREATED_PRICE = "Not created price";
 
     private static final Logger log = LoggerFactory.getLogger(PricesController.class);
 
@@ -36,6 +38,25 @@ public class PricesController {
     @Autowired
     public PricesController(PricesService pricesService) {
         this.pricesService = pricesService;
+    }
+
+    @PostMapping(value = "prices/create")
+    @ApiOperation(value = "Create price",
+            notes = "brandId: numeric 1 by default ZARA \n " +
+                    "date: String pattern Example  - >  2020-06-14 00:00:00 \n " +
+                    "productId: numeric \n ")
+
+    public ResponseEntity<Object> createPrice(@RequestBody(required = true) CreatePriceDTO createPriceDTO) {
+        try{
+            Prices prices = pricesService.createNewPrice(createPriceDTO);
+            if (prices != null){
+                return new ResponseEntity<>(prices, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(NOT_CREATED_PRICE, HttpStatus.OK);
+        }catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(value = "prices")

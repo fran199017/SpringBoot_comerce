@@ -16,7 +16,7 @@ import java.util.Optional;
 @Repository("pricesRepository")
 public interface PricesRepository extends PagingAndSortingRepository<Prices, Integer>, JpaSpecificationExecutor<Prices> {
 
-    @Query(value = "select p FROM Prices p where :date between p.startDate " +
-            "AND p.endDate and p.productId = :productId AND p.brandId = :brandId")
+    @Query(nativeQuery = true,value= "SELECT * from Prices where :date BETWEEN start_date AND end_date " +
+            "AND product_id = :productId AND brand_id = :brandId order by priority DESC LIMIT 1")
     Optional<List<Prices>> findByParameters(LocalDateTime date, @Param("productId")int productId, @Param("brandId")int brandId);
 }

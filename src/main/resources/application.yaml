@@ -24,3 +24,5 @@ spring:
     password:
     hikari:
       auto-commit: false
+flyway:
+  baseline-on-migrate: true
