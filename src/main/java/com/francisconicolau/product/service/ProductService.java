@@ -41,7 +41,7 @@ public class ProductService {
     }
 
     public float updatePricesForProducts(int productId){
-        Optional<Prices> priceOpt = pricesRepository.findByProductId(productId);
+        Optional<Prices> priceOpt = pricesRepository.findByProductIdAndMaxPriority(productId);
         if (priceOpt.isPresent()){
             Prices prices = priceOpt.get();
             if (prices != null){
