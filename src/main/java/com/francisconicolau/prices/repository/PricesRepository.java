@@ -19,4 +19,6 @@ public interface PricesRepository extends PagingAndSortingRepository<Prices, Int
     @Query(nativeQuery = true,value= "SELECT * from Prices where :date BETWEEN start_date AND end_date " +
             "AND product_id = :productId AND brand_id = :brandId order by priority DESC LIMIT 1")
     Optional<List<Prices>> findByParameters(LocalDateTime date, @Param("productId")int productId, @Param("brandId")int brandId);
+
+    Optional<Prices> findByProductId(int productId);
 }
