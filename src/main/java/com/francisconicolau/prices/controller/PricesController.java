@@ -21,13 +21,6 @@ import java.util.List;
 @RequestMapping("api/v1/")
 public class PricesController {
 
-    /*HTTP STATUS*/
-    private static final String COMMAND_EXECUTE_SUCCESFULLY = "Command executed succesfully";
-    private static final String BAD_REQUEST = "Bad Request";
-    private static final String SERVER_EXCEPTION = "Server Exception";
-    private static final String UNAUTHORIZED = "Unauthorized";
-
-
     private static final String NOT_FOUND_PRICES = "Not found prices";
     private static final String NOT_CREATED_PRICE = "Not created price";
 
