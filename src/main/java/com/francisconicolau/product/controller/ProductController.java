@@ -72,33 +72,45 @@ public class ProductController {
         return null;
     }
 
-    @ApiOperation(value = "Update product by id")
-    @ApiResponses(value = {
-            @ApiResponse(code = 500, message = "Server Exception"),
-            @ApiResponse(code = 200, message = "OK", response = Products.class)
-    })
-    @PutMapping(value = "/products/{id}")
-    public ResponseEntity<Object> updateProduct(@RequestBody ProductDTO productDTO,
-                                                @PathVariable @ApiParam(value = "The product id", required = true) int id) {
-        try {
-            Products updated = productService.updateProduct(id , productDTO);
-            if (updated != null){
-                return new ResponseEntity<>(updated, HttpStatus.OK);
-
-            }
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
     @DeleteMapping(value = "/product")
-    public ResponseEntity<Object> deleteProduct(int id) {
+    public ModelAndView deleteProduct(int id) {
         try {
             productService.deleteProduct(id);
             ModelAndView model = new ModelAndView();
             model.setViewName("index");
+            return model;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    @GetMapping(value = "/modifyproduct")
+    public ModelAndView goUpdate(int id) {
+        try {
+            ModelAndView model = new ModelAndView();
+            model.setViewName("modifyproduct");
+            Products product = productService.getProductById(id);
+            if (product != null){
+                model.addObject("product", product);
+                return model;
+            }
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    @PostMapping(value = "/process_update")
+    public ModelAndView processUpdate(Products product) {
+        try {
+            log.info("Product {}", product);
+            productService.updateProduct(product);
+            ModelAndView model = new ModelAndView("redirect:index");
+            return model;
+
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

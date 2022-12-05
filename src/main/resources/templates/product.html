@@ -10,7 +10,6 @@
 <body>
 
 <div th:if="${product != null}" class="card" style="width: 12%;margin: 10px;">
-    PENDIENTE DE UPDATE /DELETE
     <div class="card-body">
         <img class="card-img-top" th:src="@{${product.imagePath}}" alt="Card image cap">
         <h5 class="card-title" th:text="${product.name}">Name</h5>

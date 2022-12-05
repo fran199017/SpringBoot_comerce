@@ -37,7 +37,7 @@
 			  <td><span th:text="${'Price - ' + product.price}"></span></td>
 			  <td>
 				  <button th:attr="onclick=|goProduct('${product.id}')|" class="btn btn-primary">Ver</button>
-				  <button class="btn btn-success">Modificar</button>
+				  <button th:attr="onclick=|updateProduct('${product.id}')|" class="btn btn-success">Modificar</button>
 				  <button th:attr="onclick=|deleteProduct('${product.id}')|" class="btn btn-danger">Eliminar</button>
 			  </td>
 		  </tr>

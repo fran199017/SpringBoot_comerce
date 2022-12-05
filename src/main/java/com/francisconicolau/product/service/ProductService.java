@@ -57,7 +57,7 @@ public class ProductService {
         return null;
     }
 
-    public Products updateProduct(int id, ProductDTO productDTO) {
+/*    public Products updateProduct(int id, ProductDTO productDTO) {
         Products product = getProductById(id);
 
         if (product != null){
@@ -89,7 +89,7 @@ public class ProductService {
         }
 
         return null;
-    }
+    }*/
 
     public void deleteProduct(int id) {
         Products product = getProductById(id);
@@ -97,5 +97,9 @@ public class ProductService {
             productRepository.delete(product);
         }
 
+    }
+
+    public void updateProduct(Products products) {
+        productRepository.save(products);
     }
 }

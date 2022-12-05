@@ -15,3 +15,7 @@ function deleteProduct(id){
     http.send();
     window.location.href = "index";
 }
+
+function updateProduct(id){
+     window.location.href = "modifyproduct?id=" + id;
+}
