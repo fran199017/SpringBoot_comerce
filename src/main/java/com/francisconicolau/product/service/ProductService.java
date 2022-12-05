@@ -3,7 +3,6 @@ package com.francisconicolau.product.service;
 import com.francisconicolau.prices.model.Prices;
 import com.francisconicolau.prices.repository.PricesRepository;
 import com.francisconicolau.product.model.Products;
-import com.francisconicolau.product.model.dto.ProductDTO;
 import com.francisconicolau.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
