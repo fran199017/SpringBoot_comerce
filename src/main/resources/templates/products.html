@@ -7,19 +7,44 @@
  </head>
   <body>
   <h1 class="text text-center" style="color:white">Products</h1>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
-	<div th:if="${not #lists.isEmpty(products)}"  class="cards">
-	  <div style="cursor:pointer;" class="card text-center"  th:each="product : ${products}">
-		  <img th:attr="onclick=|goProduct('${product.id}')|" class="card-img-top" th:src="@{${product.imagePath}}" alt="Card image cap">
-		  <div  th:attr="onclick=|goProduct('${product.id}')|" class="card-body">
-			  <h5 class="card-title" th:text="${product.name}">Name</h5>
-			  <p class="card-text" th:text="${product.description}">Description</p>
-			  <div class="text-container">
-				  <span class="card-text" th:text="${'Price - ' + product.price}">Price</span>
-			  </div>
-		  </div>
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		  <ul class="navbar-nav mr-auto">
+			  <li class="nav-item active">
+				  <a class="nav-link" th:href="@{index}">Index</a>
+			  </li>
+		  </ul>
 	  </div>
-	</div>
+  </nav>
+  <div class="container">
+	  <table th:if="${not #lists.isEmpty(products)}" class="table">
+		  <thead class="thead-dark">
+
+		  <tr>
+			  <th style="width: 230px;" scope="col">Image</th>
+			  <th scope="col">Name</th>
+			  <th scope="col">Description</th>
+			  <th style="width: 270px;" scope="col">Price</th>
+			  <th style="width: 270px;" scope="col">Action</th>
+		  </tr>
+		  </thead>
+
+		  <tr th:each="product : ${products}">
+			  <td><img th:src="@{${product.imagePath}}"  style="height: 25%;width: 25%;"></td>
+			  <td><span th:text="${product.name}">Name</span></td>
+			  <td><span th:text="${product.description}"></span></td>
+			  <td><span th:text="${'Price - ' + product.price}"></span></td>
+			  <td>
+				  <button th:attr="onclick=|goProduct('${product.id}')|" class="btn btn-primary">Ver</button>
+				  <button class="btn btn-success">Modificar</button>
+				  <button th:attr="onclick=|deleteProduct('${product.id}')|" class="btn btn-danger">Eliminar</button>
+			  </td>
+		  </tr>
+
+	  </table>
+  </div>
+
 	<div th:if="${#lists.isEmpty(products)}">
 	  	<p style="color:white;">Empty list</p>
 	</div>

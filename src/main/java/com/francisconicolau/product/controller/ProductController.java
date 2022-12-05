@@ -29,6 +29,19 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping(value = "/index")
+    public ModelAndView index() {
+        try {
+            ModelAndView model = new ModelAndView();
+            model.setViewName("index");
+            return model;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return null;
+        }
+    }
+
+
     @GetMapping(value = "/products")
     public ModelAndView products() {
         try {
@@ -80,19 +93,15 @@ public class ProductController {
         }
     }
 
-    @ApiOperation(value = "Update product by id")
-    @ApiResponses(value = {
-            @ApiResponse(code = 500, message = "Server Exception"),
-            @ApiResponse(code = 200, message = "OK", response = Products.class)
-    })
-    @DeleteMapping(value = "/products/{id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable @ApiParam(value = "The product id", required = true) int id) {
+    @DeleteMapping(value = "/product")
+    public ResponseEntity<Object> deleteProduct(int id) {
         try {
             productService.deleteProduct(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            ModelAndView model = new ModelAndView();
+            model.setViewName("index");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return null;
     }
 }
