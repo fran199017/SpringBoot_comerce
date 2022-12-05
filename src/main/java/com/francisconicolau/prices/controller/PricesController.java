@@ -52,6 +52,24 @@ public class PricesController {
         }
     }
 
+    @PostMapping(value = "prices/{id}")
+    @ApiOperation(value = "Update price",
+            notes = "date: String pattern Example  - >  2020-06-14 00:00:00 \n")
+
+    public ResponseEntity<Object> updatePrice(@RequestBody(required = true) CreatePriceDTO createPriceDTO,
+                                                @PathVariable @ApiParam(value = "The id", required = true) int id) {
+        try{
+            Prices prices = pricesService.updatePrice(id,createPriceDTO);
+            if (prices != null){
+                return new ResponseEntity<>(prices, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(NOT_CREATED_PRICE, HttpStatus.OK);
+        }catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping(value = "prices")
     @ApiOperation(value = "Get prices by PricesDTO filter",
             notes = "brandId: numeric 1 by default ZARA \n " +
@@ -85,6 +103,19 @@ public class PricesController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping(value = "prices/{id}")
+    @ApiOperation(value = "Delete price by ID")
+    public ResponseEntity<Object> deletePrice(@PathVariable @ApiParam(value = "The id", required = true) int id) {
+        try{
+            pricesService.deletePrice(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @ApiOperation(value = "Optional endpoint -> Getting prices with spec between two dates")
     @GetMapping(value="/prices/filter")
     @ApiResponses( value = {

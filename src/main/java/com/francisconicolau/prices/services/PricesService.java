@@ -100,4 +100,57 @@ public class PricesService {
         return save;
     }
 
+    public void deletePrice(int id) {
+        Prices price = getById(id);
+        if (price != null){
+            pricesRepository.delete(price);
+        }
+    }
+
+    public Prices updatePrice(int id, CreatePriceDTO priceDTO) {
+        Prices prices = getById(id);
+        if (prices != null){
+            float price = priceDTO.getPrice();
+            int priceList = priceDTO.getPriceList();
+            int priority = priceDTO.getPriority();
+            String curr = priceDTO.getCurr();
+            int brandId = priceDTO.getBrandId();
+            String startDate = priceDTO.getStartDate();
+            String endDate = priceDTO.getEndDate();
+            int productId = priceDTO.getProductId();
+
+            if (price > 0){
+                prices.setPrice(price);
+            }
+            if (priceList > 0 ){
+                prices.setPriceList(priceList);
+            }
+            if (priority >= 0){
+                prices.setPriority(priority);
+            }
+            if (curr != null){
+                prices.setCurr(curr);
+            }
+            if (brandId > 0){
+                prices.setBrandId(brandId);
+            }
+            if (startDate != null){
+                LocalDateTime dateformatted = getDateformatted(startDate);
+                prices.setStartDate(dateformatted);
+            }
+
+            if (endDate != null){
+                LocalDateTime dateformatted = getDateformatted(endDate);
+                prices.setEndDate(dateformatted);
+            }
+            if (productId > 0){
+                prices.setProductId(productId);
+            }
+            Prices saved = pricesRepository.save(prices);
+            if (saved != null){
+                return saved;
+            }
+        }
+        return null;
+    }
 }
