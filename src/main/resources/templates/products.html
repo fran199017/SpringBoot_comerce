@@ -9,9 +9,9 @@
   <h1 class="text text-center" style="color:white">Products</h1>
 
 	<div th:if="${not #lists.isEmpty(products)}"  class="cards">
-	  <div class="card text-center"  th:each="product : ${products}">
-		  <div class="card-body">
-			  <img class="card-img-top" th:src="@{${product.imagePath}}" alt="Card image cap">
+	  <div style="cursor:pointer;" class="card text-center"  th:each="product : ${products}">
+		  <img th:attr="onclick=|goProduct('${product.id}')|" class="card-img-top" th:src="@{${product.imagePath}}" alt="Card image cap">
+		  <div  th:attr="onclick=|goProduct('${product.id}')|" class="card-body">
 			  <h5 class="card-title" th:text="${product.name}">Name</h5>
 			  <p class="card-text" th:text="${product.description}">Description</p>
 			  <div class="text-container">
@@ -24,4 +24,5 @@
 	  	<p style="color:white;">Empty list</p>
 	</div>
   </body>
+  <script type="text/javascript" src="static/js/product.js" th:src="@{/js/product.js}"></script>
 </html>

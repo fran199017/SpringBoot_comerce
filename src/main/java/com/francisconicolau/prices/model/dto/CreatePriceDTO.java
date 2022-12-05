@@ -1,10 +1,5 @@
 package com.francisconicolau.prices.model.dto;
 
-import io.swagger.annotations.ApiModelProperty;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 public class CreatePriceDTO {
 
