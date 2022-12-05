@@ -57,40 +57,6 @@ public class ProductService {
         return null;
     }
 
-/*    public Products updateProduct(int id, ProductDTO productDTO) {
-        Products product = getProductById(id);
-
-        if (product != null){
-            String name = productDTO.getName();
-            String description = productDTO.getDescription();
-            float price = productDTO.getPrice();
-            String path = productDTO.getImagePath();
-
-            if (name != null){
-                product.setName(productDTO.getName());
-            }
-
-            if (description != null){
-                product.setDescription(productDTO.getDescription());
-            }
-
-            if (price > 0){
-                product.setPrice(productDTO.getPrice());
-            }
-
-            if (path != null){
-                product.setImagePath(productDTO.getImagePath());
-            }
-
-            Products saved = productRepository.save(product);
-            if (saved !=null){
-                return saved;
-            }
-        }
-
-        return null;
-    }*/
-
     public void deleteProduct(int id) {
         Products product = getProductById(id);
         if (product != null){

@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -152,5 +153,18 @@ public class PricesService {
             }
         }
         return null;
+    }
+
+    public List<Float> getListOfPricesWithooutPriority(int productId) {
+        Optional<List<Prices>> pricesOpt = pricesRepository.findByProductId(productId);
+        if (!pricesOpt.isPresent()){
+            return Collections.emptyList();
+        }
+        List<Float> pricesFloat = new ArrayList<>();
+        for (Prices price: pricesOpt.get()){
+            float priceFloat = price.getPrice();
+            pricesFloat.add(priceFloat);
+        }
+        return pricesFloat;
     }
 }

@@ -22,4 +22,6 @@ public interface PricesRepository extends PagingAndSortingRepository<Prices, Int
 
     @Query(nativeQuery = true,value= "SELECT * from Prices where product_id = :productId order by priority DESC LIMIT 1")
     Optional<Prices> findByProductIdAndMaxPriority(@Param("productId")int productId);
+
+    Optional<List<Prices>> findByProductId(int productId);
 }

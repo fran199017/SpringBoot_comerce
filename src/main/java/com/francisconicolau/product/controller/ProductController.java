@@ -1,19 +1,18 @@
 package com.francisconicolau.product.controller;
 
+import com.francisconicolau.prices.model.Prices;
+import com.francisconicolau.prices.services.PricesService;
 import com.francisconicolau.product.model.Products;
-import com.francisconicolau.product.model.dto.ProductDTO;
 import com.francisconicolau.product.service.ProductService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 
 @RequestMapping("/public")
@@ -23,10 +22,12 @@ public class ProductController {
     private static final Logger log = LoggerFactory.getLogger(ProductController.class);
 
     private ProductService productService;
+    private PricesService pricesService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, PricesService pricesService) {
         this.productService = productService;
+        this.pricesService = pricesService;
     }
 
     @GetMapping(value = "/index")
@@ -92,8 +93,12 @@ public class ProductController {
             ModelAndView model = new ModelAndView();
             model.setViewName("modifyproduct");
             Products product = productService.getProductById(id);
+            List<Float> prices = pricesService.getListOfPricesWithooutPriority(product.getId());
             if (product != null){
                 model.addObject("product", product);
+                if (!prices.isEmpty()){
+                    model.addObject("prices", prices);
+                }
                 return model;
             }
 

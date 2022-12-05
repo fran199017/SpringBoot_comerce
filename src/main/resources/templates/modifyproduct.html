@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-    <title>Pre-login</title>
+    <title>Update product</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
@@ -50,7 +50,10 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label">Price </label>
                 <div class="col-8">
-                    <input type="text" th:field="*{price}" class="form-control" required/>
+                    <select th:value="${i}" th:field="*{price}" class="form-control" aria-label="Default select example">
+                        <option th:text="${i}" th:value="${i}" th:each="i : ${prices}" ></option>
+                    </select>
+<!--                    <input type="number" th:field="*{price}" class="form-control" required/>-->
                 </div>
             </div>
             <div class="form-group row">
