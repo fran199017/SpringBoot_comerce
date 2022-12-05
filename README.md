@@ -14,5 +14,4 @@ http://localhost:8080/swagger-ui
 http://localhost:8080/public/products
 
 ##Front example
-![ScreenShot](https://raw.githubusercontent.com/fran199017/SpringBoot_comerce/master/assets/img.png)
 
