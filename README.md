@@ -1,5 +1,5 @@
 # SpringBoot_ComerceAPI (In process)
-A comerce back-end project to company test with a little optional front of four products
+A comerce back-end project to company test with a little optional front of products.
 ##Technologies
 - Java.
 - Spring boot.
