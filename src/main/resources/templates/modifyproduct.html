@@ -50,9 +50,9 @@
             <div class="form-group row">
                 <label class="col-4 col-form-label">Price </label>
                 <div class="col-8">
-                    <select th:field="*{price}" class="form-control" aria-label="Default select example">
-                        <option th:text="${i}"  th:value="${i}"  th:each="i : ${prices}" ></option>
-                    </select>
+                    <input type="text" th:field="*{price}" class="form-control"
+                           required/>
+
                 </div>
             </div>
             <div class="form-group row">

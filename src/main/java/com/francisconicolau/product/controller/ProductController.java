@@ -93,12 +93,8 @@ public class ProductController {
             ModelAndView model = new ModelAndView();
             model.setViewName("modifyproduct");
             Products product = productService.getProductById(id);
-            List<Float> prices = pricesService.getListOfPricesWithooutPriority(product.getId());
             if (product != null){
                 model.addObject("product", product);
-                if (!prices.isEmpty()){
-                    model.addObject("prices", prices);
-                }
                 return model;
             }
 
