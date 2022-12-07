@@ -19,3 +19,8 @@ function deleteProduct(id){
 function updateProduct(id){
      window.location.href = "modifyproduct?id=" + id;
 }
+
+
+function goCreate(){
+     window.location.href = "process_create";
+}

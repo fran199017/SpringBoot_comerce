@@ -1,6 +1,6 @@
 package com.francisconicolau.product.controller;
 
-import com.francisconicolau.prices.model.Prices;
+
 import com.francisconicolau.prices.services.PricesService;
 import com.francisconicolau.product.model.Products;
 import com.francisconicolau.product.service.ProductService;
@@ -113,6 +113,32 @@ public class ProductController {
         try {
             log.info("Product {}", product);
             productService.updateProduct(product);
+            ModelAndView model = new ModelAndView("redirect:index");
+            return model;
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    @GetMapping(value = "/process_create")
+    public ModelAndView processCreateProduct() {
+        try {
+            ModelAndView model = new ModelAndView("process_create");
+            model.addObject("product", new Products());
+            return model;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    @PostMapping(value = "/create_product")
+    public ModelAndView createProduct(Products product) {
+        try {
+            log.info("Product {}", product);
+            productService.createProduct(product);
             ModelAndView model = new ModelAndView("redirect:index");
             return model;
 

@@ -44,6 +44,7 @@
 		  </tr>
 
 	  </table>
+	  <button th:attr="onclick=|goCreate()|" class="btn"><img style="width: 25px;height: 25px;" th:src="@{../images/add.png}"></button>
   </div>
 
 	<div th:if="${#lists.isEmpty(products)}">
